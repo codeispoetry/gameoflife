@@ -1,0 +1,22 @@
+#gol{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.element{
+    border: 1px solid #AAA;
+    width: 8px;
+    height: 8px;  
+}
+
+.alive{
+    background: black;
+}
+
+
+.break{
+    flex-basis: 100%;
+}
+
+
