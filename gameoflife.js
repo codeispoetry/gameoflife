@@ -2,29 +2,20 @@ var grid = createGrid(50, 40);
 initRender();
    
 const start = [
-   
     {x:4, y:5},
     {x:2, y:5},
     {x:3, y:5},
-
     {x:4, y:4},
-
     {x:3, y:3},
+].map( e => setStatus(e, 1));
 
-];
-
-start.map( e => setStatus(e, 1));
-
-render();
-
-
-window.setInterval(generation, 300);
+window.setInterval(generation, 100);
 
 /////////////////////////////////////
 
 function generation(){
     prepareNextGeneration();
-    performNextGeneration();
+    applyNextGeneration();
     render();
 }
 
@@ -32,29 +23,21 @@ function prepareNextGeneration(){
     grid.map( (line,y) => {
         line.map( (e, x) => { 
             const gna = getCountNeighboursAlive({x,y}); 
+            if (gna === 3 
+                || (gna === 2 && getStatus({x,y}) === 1)
+                ){
+                prepareStatus({x,y}, 1);
+                return;
+            } 
 
-            if(getStatus({x,y}) === 1 ){
-                if(gna === 2 || gna === 3){
-                    prepareStatus({x,y}, 1);
-                } else {
-                    prepareStatus({x,y}, 0);
-                }
-            }
-
-            if(getStatus({x,y}) === 0 ){
-                if( gna === 3){
-                    prepareStatus({x,y}, 1);
-                } else {
-                    prepareStatus({x,y}, 0);
-                }
-            }
+            prepareStatus({x,y}, 0);
         })
     })
 }
 
-function performNextGeneration(){
+function applyNextGeneration(){
     grid.map( (line,y) => {
-        line.map( (e, x) => { 
+        line.map( (e, x) => {  
             setStatus({x,y}, grid[y][x].next);           
         })
     })

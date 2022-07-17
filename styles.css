@@ -5,13 +5,15 @@
 }
 
 .element{
-    border: 1px solid #AAA;
+    border-right: 1px solid #AAA;
+    border-bottom: 1px solid #AAA;
+
     width: 8px;
     height: 8px;  
 }
 
 .alive{
-    background: black;
+    background: rgb(165, 2, 2);
 }
 
 
